@@ -2,7 +2,7 @@ const util = require('util');
 const process = require('process');
 const { execFile } = require('child_process');
 const axios = require('axios');
-const { tokenResult } = require('../utils/constants');
+const { tokenResult, nameRepo } = require('../utils/constants');
 
 const execFileAsync = util.promisify(execFile);
 
@@ -26,7 +26,7 @@ module.exports = async (request, response) => {
       '--contains',
       commitHash,
     ],
-    { cwd: `${dir}/svdom` },
+    { cwd: `${dir}/${nameRepo}` },
   );
 
   const promiseComit = execFileAsync(
@@ -38,12 +38,11 @@ module.exports = async (request, response) => {
       '--pretty=format:%H[split]%an[split]%s',
       '--summary',
     ],
-    { cwd: `${dir}/svdom` },
+    { cwd: `${dir}/${nameRepo}` },
   );
 
   Promise.all([promiseBranch, promiseComit]).then((values) => {
     const branchName = values[0].stdout
-      .trim()
       .replace('*', '')
       .split('\n')[0]
       .trim();

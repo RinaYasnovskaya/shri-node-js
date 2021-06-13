@@ -1,9 +1,10 @@
 const axios = require('axios').default;
 const { exec } = require('child_process');
-const { tokenResult } = require('../utils/constants');
+const constants = require('../utils/constants');
 
 module.exports = async (request, response) => {
   const { repoName } = request.body;
+  const { tokenResult } = constants;
 
   await axios.post('https://shri.yandex/hw/api/conf', request.body, {
     headers: {
@@ -11,6 +12,8 @@ module.exports = async (request, response) => {
       'Content-Type': 'application/json',
     },
   });
+
+  constants.nameRepo = repoName.split('/')[repoName.length - 1];
 
   exec(`git clone ${repoName}`, (err, out) => {
     if (err) {

@@ -1,13 +1,15 @@
-const axios = require('axios').default;
+const axios = require('axios');
 const { tokenResult } = require('../utils/constants');
 
 module.exports = async (request, response) => {
-  const res = await axios.get('https://shri.yandex/hw/api/conf', {
+  const { params: { buildId } } = request;
+
+  const res = await axios.get(`https://shri.yandex/hw/api/build/details/${buildId}`, {
     headers: {
       Authorization: `Bearer ${tokenResult}`,
       'Content-Type': 'application/json',
     },
   });
 
-  response.send(res);
+  response.send(res.data);
 };

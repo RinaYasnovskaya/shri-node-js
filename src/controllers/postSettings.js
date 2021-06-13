@@ -1,6 +1,5 @@
 const axios = require('axios').default;
 const { exec } = require('child_process');
-// const process = require('process');
 const { tokenResult } = require('../utils/constants');
 
 module.exports = async (request, response) => {
@@ -9,7 +8,7 @@ module.exports = async (request, response) => {
   await axios.post('https://shri.yandex/hw/api/conf', request.body, {
     headers: {
       Authorization: `Bearer ${tokenResult}`,
-      Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
   });
 

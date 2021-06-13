@@ -1,21 +1,23 @@
 const axios = require('axios').default;
-const spawn = require('child_process');
+const { exec } = require('child_process');
+// const process = require('process');
 const { tokenResult } = require('../utils/constants');
 
 module.exports = async (request, response) => {
-  // spawn('git', ['clone']).stdout
+  const { repoName } = request.body;
 
-  const req = await axios.post('https://shri.yandex/hw/api/conf', {
-    repoName: 'repo-name',
-    buildCommand: 'npm run build',
-    mainBranch: 'main',
-    period: 0,
-  }, {
+  await axios.post('https://shri.yandex/hw/api/conf', request.body, {
     headers: {
       Authorization: `Bearer ${tokenResult}`,
       Accept: 'application/json',
     },
   });
 
-  // console.log(request.body.repoName);
+  exec(`git clone ${repoName}`, (err, out) => {
+    if (err) {
+      console.log(err);
+    } else {
+      response.send(out);
+    }
+  });
 };

@@ -14,7 +14,11 @@ app.use(express.static(path.join(__dirname, 'static')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.engine('html', require('ejs').renderFile);
 
-app.use(express.json());
+app.use(express.json(
+  {
+    type: 'application/json',
+  },
+));
 
 app.use('/', routerMain);
 app.use('/api', routerApi);

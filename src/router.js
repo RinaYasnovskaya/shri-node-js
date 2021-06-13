@@ -13,7 +13,7 @@ routerApi.get('/builds/:buildId', (req, res) => res.send('buildId'));// GET  /ap
 routerApi.get('/builds/:buildId/logs', (req, res) => res.send('logs'));// GET  /api/builds/:buildId/logs  - получение логов билда (сплошной текст)
 
 // handler for /
-routerMain.get('/', (req, res) => res.send('ff'));
+routerMain.get('/', (req, res) => res.render('index.html'));
 
 // exports routers
 exports.routerApi = routerApi;

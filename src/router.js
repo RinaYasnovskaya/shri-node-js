@@ -1,12 +1,13 @@
 const express = require('express');
+const { getSettings, postSettings } = require('./controllers');
 
 // create Routers
 const routerApi = new express.Router();
 const routerMain = new express.Router();
 
 // handlers for /api
-routerApi.get('/settings', (req, res) => res.send('settings pofst')); // GET /api/settings  — получение сохраненных настроек
-routerApi.post('/settings', (req, res) => res.send('settings post')); // POST /api/settings  - cохранение настроек
+routerApi.get('/settings', getSettings); // GET /api/settings  — получение сохраненных настроек
+routerApi.post('/settings', postSettings); // POST /api/settings  - cохранение настроек
 routerApi.get('/builds', (req, res) => res.send('get builds')); // GET  /api/builds  - получение списка сборок
 routerApi.post('/builds/:commitHash', (req, res) => res.send('commitHash')); // POST /api/builds/:commitHash  - добавление сборки в очередь
 routerApi.get('/builds/:buildId', (req, res) => res.send('buildId'));// GET  /api/builds/:buildId  - получение информации о конкретной сборке

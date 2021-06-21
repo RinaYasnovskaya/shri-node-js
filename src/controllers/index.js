@@ -1,9 +1,9 @@
-const getSettings = require('./getSettings');
-const postSettings = require('./postSettings');
-const getBuilds = require('./getBuilds');
-const getBuildInformation = require('./getBuildInformation');
-const getBuildLogs = require('./getBuildLogs');
-const postBuildWithCommitHash = require('./postBuildWithCommitHash');
+const getSettings = require('./settings/getSettings');
+const postSettings = require('./settings/postSettings');
+const getBuilds = require('./build/getBuilds');
+const getBuildInformation = require('./build/getBuildInformation');
+const getBuildLogs = require('./build/getBuildLogs');
+const postBuildWithCommitHash = require('./build/postBuildWithCommitHash');
 
 module.exports = {
   getSettings,

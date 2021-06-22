@@ -1,29 +1,33 @@
 const axios = require('axios').default;
 const { exec } = require('child_process');
-const constants = require('../../utils/constants');
+const process = require('process');
+const db = require('../../entities/Database');
 
 module.exports = async (request, response) => {
   const { repoName } = request.body;
-  const { tokenResult } = constants;
+  const TOKEN = process.env.AUTH_TOKEN;
 
   try {
     const res = await axios.post('https://shri.yandex/hw/api/conf', request.body, {
       headers: {
-        Authorization: `Bearer ${tokenResult}`,
+        Authorization: `Bearer ${TOKEN}`,
         'Content-Type': 'application/json',
       },
     });
 
-    constants.nameRepo = repoName.split('/')[repoName.length - 1];
+    db.insertSettings(request.body);
+
+    const repoNameArr = repoName.split('/');
+    process.env.NAME_REPO = repoNameArr[repoNameArr.length - 1];
 
     exec(`git clone ${repoName}`, (err, out) => {
       if (err) {
-        console.log(err);
+        console.log(err.message);
       } else {
         response.json(res.data, out);
       }
     });
   } catch (error) {
-    response.json(error);
+    response.json(error.message);
   }
 };

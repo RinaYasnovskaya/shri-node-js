@@ -1,10 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const http = require('http');
 const path = require('path');
+const process = require('process');
 const { routerApi, routerMain } = require('./router');
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 const server = http.createServer(app);
 
 app.set('views', path.join(__dirname, 'views'));

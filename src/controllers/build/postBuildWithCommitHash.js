@@ -2,14 +2,15 @@ const util = require('util');
 const process = require('process');
 const { execFile } = require('child_process');
 const axios = require('axios');
-const { tokenResult, nameRepo } = require('../../utils/constants');
 
 const execFileAsync = util.promisify(execFile);
 
 async function postInfoBuild(jsonObj, response) {
+  const TOKEN = process.env.AUTH_TOKEN;
+
   const res = await axios.post('https://shri.yandex/hw/api/build/request', jsonObj, {
     headers: {
-      Authorization: `Bearer ${tokenResult}`,
+      Authorization: `Bearer ${TOKEN}`,
       'Content-Type': 'application/json',
     },
   });
@@ -20,6 +21,7 @@ async function postInfoBuild(jsonObj, response) {
 module.exports = async (request, response) => {
   const { params: { commitHash } } = request;
   const dir = process.cwd();
+  const nameRepo = process.env.NAME_REPO;
 
   const promiseBranch = execFileAsync(
     'git',
@@ -62,6 +64,6 @@ module.exports = async (request, response) => {
       postInfoBuild(JSON.stringify(resultObj), response);
     })
     .catch((error) => {
-      response.json(error);
+      response.json(error.message);
     });
 };

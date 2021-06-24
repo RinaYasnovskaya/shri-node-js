@@ -16,8 +16,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('views engine', 'ejs');
 
 app.use(express.static(path.resolve(__dirname, '..', 'client', 'dist')));
-// app.use(express.static(path.join(__dirname, 'views')));
-// app.engine('html', require('ejs').renderFile);
 
 app.use(express.json(
   {

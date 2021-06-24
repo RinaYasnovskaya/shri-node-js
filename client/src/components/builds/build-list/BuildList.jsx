@@ -4,7 +4,7 @@ import './buildList.scss';
 import './buildCard.scss';
 import { buildList } from '../../../js/test-backend';
 
-export const BuildList = async () => {
+export const BuildList = () => {
   const { data } = buildList;
 
   return (

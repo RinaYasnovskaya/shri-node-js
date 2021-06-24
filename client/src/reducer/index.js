@@ -1,0 +1,1 @@
+export { storeReducer } from './reducer';

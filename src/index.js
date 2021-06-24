@@ -3,18 +3,21 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const process = require('process');
+const cors = require('cors');
 const { routerApi, routerMain } = require('./router');
 
 const app = express();
 const port = process.env.PORT;
 const server = http.createServer(app);
 
+app.use(cors);
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('views engine', 'ejs');
 
-app.use(express.static(path.join(__dirname, 'static')));
-app.use(express.static(path.join(__dirname, 'views')));
-app.engine('html', require('ejs').renderFile);
+app.use(express.static(path.resolve(__dirname, '..', 'client', 'dist')));
+// app.use(express.static(path.join(__dirname, 'views')));
+// app.engine('html', require('ejs').renderFile);
 
 app.use(express.json(
   {

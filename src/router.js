@@ -1,4 +1,6 @@
 const express = require('express');
+// const { createProxyMiddleware } = require('http-proxy-middleware');
+// const path = require('path');
 const {
   getSettings,
   postSettings,
@@ -21,7 +23,17 @@ routerApi.get('/builds/:buildId', getBuildInformation);// GET  /api/builds/:buil
 routerApi.get('/builds/:buildId/logs', getBuildLogs);// GET  /api/builds/:buildId/logs  - получение логов билда (сплошной текст)
 
 // handler for /
-routerMain.get('/', (req, res) => res.render('index.html'));
+// routerMain.get('/', (req, res) => res.render('index.html'));
+// routerMain.use(
+//   '/',
+//   process.env.NODE_ENV === 'production'
+//     ? express.static(path.resolve(__dirname, '..', 'client', 'dist'))
+//     : createProxyMiddleware({
+//       target: 'http://localhost:3000',
+//       secure: false,
+//       changeOrigin: true,
+//     }),
+// );
 
 // exports routers
 exports.routerApi = routerApi;

@@ -1,0 +1,44 @@
+@import '../../../node_modules/reset-css/sass/reset';
+@import './base/buttons';
+@import './base/fonts';
+
+*{
+  box-sizing: border-box;
+}
+
+html, body, #root{
+  height: 100%;
+}
+
+body{
+  font-family: 'YS Text', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-feature-settings: 'liga', 'kern';
+    -moz-font-feature-settings: 'liga', 'kern';
+    font-feature-settings: 'liga', 'kern';
+}
+
+#main-block {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.header-content {
+  flex: 1 0 auto;
+}
+.footer {
+  flex: 0 0 auto;
+}
+
+a{
+  text-decoration: none;
+}
+
+input{
+  font-family: 'YS Text', 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-feature-settings: 'liga', 'kern';
+    -moz-font-feature-settings: 'liga', 'kern';
+    font-feature-settings: 'liga', 'kern';
+  border: none;
+  font-style: normal;
+  font-weight: 400;
+}

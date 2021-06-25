@@ -1,7 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { mainPage } from '../../reducer';
 import './settings.scss';
 
 export const Settings = () => {
+  const dispatch = useDispatch();
+
+  const onClickLink = () => {
+    dispatch(mainPage());
+  };
+
   return (
     <form action="" className="form">
       <div className="form__title">
@@ -26,7 +35,7 @@ export const Settings = () => {
         </label>
       </div>
         <input type="submit" value="Save" className="button button_bright" />
-        <input type="button" value="Cancel" className="button button_light" />
+        <Link to="/" onClick={onClickLink} className="button button_light cancel">Cancel</Link>
     </form>
   );
 };

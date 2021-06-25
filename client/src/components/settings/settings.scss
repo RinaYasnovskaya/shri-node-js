@@ -38,7 +38,7 @@
     font-size: $font-size-secondary;
   }
 
-  input:not([type="submit"]):not([type="button"]){
+  input:not([type="submit"]){
     padding-left: 13px;
     width: $width-input;
     height: $height-main-elem;
@@ -48,25 +48,19 @@
     line-height: $font-size-build;
   }
 
-  input:focus:not([type="submit"]):not([type="button"]){
+  input:focus:not([type="submit"]){
     border-color: $enabled-light-border-focus;
     outline: none;
   }
 
-  input[type="submit"], input[type="button"] {
+  input[type="submit"]{
     display: inline-block;
     padding: 0 20px;
   }
 
-  #time {
+  #time{
     width: $width-input-little;
     margin: 0 8px;
-  }
-
-  input[type="button"] {
-    height: $height-main-elem;
-    line-height: $height-main-elem;
-    margin-left: 8px;
   }
 
   input::placeholder{
@@ -76,6 +70,15 @@
   &__delete{
     background: url('../../assets/img/cancel.svg');
   }
+}
+
+.cancel{
+  font-size: $font-size-secondary;
+  display: inline-block;
+  padding: 0 20px;
+  height: $height-main-elem;
+  line-height: $height-main-elem;
+  margin-left: 8px;
 }
 
 .red-star{
@@ -93,15 +96,16 @@
     width: 100%;
     padding: 0 16px;
 
-    input:not([type="submit"]):not([type="button"]), input {
+    input:not([type="submit"]), input{
       width: 100%;
     }
 
     input[type="submit"] {
       margin-bottom: 12px;
     }
-    input[type="button"] {
-      margin-left: 0;
-    }
+  }
+  .cancel {
+    width: 100%;
+    margin-left: 0;
   }
 }

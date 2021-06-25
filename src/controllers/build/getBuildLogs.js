@@ -6,7 +6,7 @@ module.exports = async (request, response) => {
   const TOKEN = process.env.AUTH_TOKEN;
 
   try {
-    const res = await axios.get(`https://shri.yandex/hw/api/build/log/${buildId}`, {
+    const res = await axios.get(`https://shri.yandex/hw/api/build/log/?buildId=${buildId}`, {
       headers: {
         Authorization: `Bearer ${TOKEN}`,
         'Content-Type': 'application/json',

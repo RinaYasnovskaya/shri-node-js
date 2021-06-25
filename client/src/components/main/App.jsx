@@ -1,45 +1,34 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { Footer, Header, StartPage, BuildList, BuildDetails, Settings } from '../index';
 import '../../assets/scss/main.scss';
+import { useSelector } from 'react-redux';
 
 export const App = () => {
-  let title = "School CI server";
-  let buildExist = true;
-  let runBuild = false;
-
-  if (buildExist) {
-    runBuild = true;
-  }
+  const { showSettings, rebuild, isBuildExist } = useSelector((state) => state);
 
   return (
     <div id="main-block">
-      <Route exact path="/" component={() => {
-        return (
-          <div className="header-content">
-            <Header title={ buildExist ? null : title } settings={true} runBuild={runBuild} />
-            {
-              buildExist ? <BuildList /> : <StartPage />
-            }
-          </div>
-        )
-      }} />
-      <Route path="/build/:buildId" component={() => {
-        return (
-          <div className="header-content">
-            <Header settings={true} rebuild={true} />
-            <BuildDetails />
-          </div>
-        )
-      }} />
-      <Route exact path="/settings" component={() => {
-        return (
-          <div className="header-content">
-            <Header title={title} settings={false} />
-            <Settings />
-          </div>
-        )
-      }} />
+      <Header
+        settings={showSettings}
+        rebuild={rebuild}
+        isBuildExist={isBuildExist}
+      />
+      <div className="header-content">
+        <Switch>
+          <Route exact path="/" component={() => {
+            return (
+              <>
+                {
+                  isBuildExist ? <BuildList /> : <StartPage />
+                }
+              </>
+            )
+          }} />
+          <Route path="/build/:buildId" component={() => <BuildDetails />} />
+          <Route exact path="/settings" component={() => <Settings />} />
+        </Switch>
+      </div>
       <Footer />
     </div>
   );

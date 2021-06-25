@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { setRebuild } from '../../../reducer';
 
 const BuildCardStuct = ({ item }) => {
   const { id,
@@ -17,9 +19,14 @@ const BuildCardStuct = ({ item }) => {
   const date = Date(start).split(' ');
   const readyDate = `${date[2]} ${date[1]}, ${date[4].substr(0, 5)}`;
   const lowerStatus = status.toLowerCase();
+  const dispatch = useDispatch();
+
+  const onClickLink = () => {
+    dispatch(setRebuild(true));
+  }
 
   return (
-    <Link to={{pathname: `/build/buildId=${id}`, item: item}} className="card">
+    <Link to={{pathname: `/build/${id}`, item: item}} onClick={onClickLink} className="card">
       <div className="card__left-part">
         <img src={`../../assets/img/${lowerStatus}.svg`} alt={status} className="card__status" />
         <div>

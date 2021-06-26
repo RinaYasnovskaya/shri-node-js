@@ -10,13 +10,11 @@ const app = express();
 const port = process.env.PORT;
 const server = http.createServer(app);
 
-app.use(cors);
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('views engine', 'ejs');
 
 app.use(express.static(path.resolve(__dirname, '..', 'client', 'dist')));
-
+app.use(cors());
 app.use(express.json(
   {
     type: 'application/json',

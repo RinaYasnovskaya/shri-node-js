@@ -1,11 +1,12 @@
 import React from 'react';
-import { withRouter } from 'react-router';
+import { useParams, withRouter } from 'react-router';
 import { BuildCard } from '../build-list/BuildCard';
 import './buildDetails.scss';
 import '../build-list/buildCard.scss';
 
 const BuildDetail = (props) => {
   const { location: { item } } = props;
+  const { buildId } = useParams();
 
   return (
     <div className="build-details">

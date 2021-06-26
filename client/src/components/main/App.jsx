@@ -8,8 +8,7 @@ import { getSettingsAsync } from '../../actions';
 export const App = () => {
   const showSettings = useSelector((state) => state.showSettings);
   const rebuild = useSelector((state) => state.rebuild);
-  const isBuildExist = useSelector((state) => state.isBuildExist);
-  const { repoName } = useSelector((state) => state.settings);
+  const settings = useSelector((state) => state.settings);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,8 +20,7 @@ export const App = () => {
       <Header
         settings={showSettings}
         rebuild={rebuild}
-        isBuildExist={isBuildExist}
-        repoName={repoName}
+        repoName={settings.repoName}
       />
       <div className="header-content">
         <Switch>
@@ -30,7 +28,7 @@ export const App = () => {
             return (
               <>
                 {
-                  isBuildExist ? <BuildList /> : <StartPage />
+                  settings ? <BuildList /> : <StartPage />
                 }
               </>
             )

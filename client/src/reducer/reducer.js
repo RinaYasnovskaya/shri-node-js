@@ -1,8 +1,7 @@
 const defaultState = {
   showSettings: true,
   rebuild: false,
-  isBuildExist: true,
-  builds: [],
+  builds: null,
   settings: {},
 };
 
@@ -11,13 +10,15 @@ export const storeReducer = (state = defaultState, action) => {
     case 'SHOW_SETTINGS':
       return {
         ...state,
+        rebuild: defaultState.rebuild,
         showSettings: action.payload,
       }
     case 'MAIN_PAGE':
       return {
         ...state,
         ...defaultState,
-        isBuildExist: state.isBuildExist
+        builds: state.builds,
+        settings: state.settings,
       }
     case 'SET_REBUILD':
       return {

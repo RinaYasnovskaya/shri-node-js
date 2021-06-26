@@ -5,8 +5,8 @@ import { Modal } from '../index';
 import { mainPage, showSettings } from '../../reducer';
 import './header.scss';
 
-export const Header = ({settings, rebuild, isBuildExist, repoName}) => {
-  const textClassSettings = ((isBuildExist || rebuild) && settings)
+export const Header = ({settings, rebuild, repoName}) => {
+  const textClassSettings = ((repoName || rebuild) && settings)
                             ? ['little', '']
                             : ['long', 'Settings'];
 
@@ -17,7 +17,7 @@ export const Header = ({settings, rebuild, isBuildExist, repoName}) => {
   const url = path[path.length-1];
   const titleHead = "School CI server";
 
-  const onClickLink = () => {
+  const onClickLinkSettings = () => {
     dispatch(showSettings(false));
   };
 
@@ -40,7 +40,7 @@ export const Header = ({settings, rebuild, isBuildExist, repoName}) => {
               : <h2 className="header__title-repo" >{repoName}</h2>}
       </Link>
       <div className="header__buttons">
-        { !rebuild && url !== 'settings'
+        { (!rebuild && url !== 'settings')
           ? <button className="button button_light button__run" onClick={onClickModal}>Run Build</button>
           : ''}
         { rebuild ? <button className="button button_light button__rebuild">Rebuild</button> : ''}
@@ -49,7 +49,7 @@ export const Header = ({settings, rebuild, isBuildExist, repoName}) => {
               className={
                 `button button_light button__settings button__settings_${textClassSettings[0]}`
               }
-              onClick={onClickLink}
+              onClick={onClickLinkSettings}
             >{textClassSettings[1]}</Link>
           : ''}
       </div>

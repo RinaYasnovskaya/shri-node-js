@@ -11,6 +11,10 @@ export const Settings = () => {
     dispatch(mainPage());
   };
 
+  const submitForm = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <form action="" className="form">
       <div className="form__title">
@@ -34,7 +38,7 @@ export const Settings = () => {
           Synchronize every <input id="time" type="number" /> minutes
         </label>
       </div>
-        <input type="submit" value="Save" className="button button_bright" />
+        <input type="submit" value="Save" className="button button_bright" onClick={submitForm} />
         <Link to="/" onClick={onClickLink} className="button button_light cancel">Cancel</Link>
     </form>
   );

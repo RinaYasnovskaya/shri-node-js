@@ -21,3 +21,13 @@ export const setSettings = (settings) => ({
   type: 'SET_SETTINGS',
   payload: settings,
 });
+
+export const settingsIsDone = (isDone) => ({
+  type: 'SETTINGS_IS_DONE',
+  payload: isDone,
+});
+
+export const settingsResult = (result) => ({
+  type: 'SETTINGS_RESULT',
+  payload: result
+});

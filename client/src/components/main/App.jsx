@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSettingsAsync } from '../../actions';
 
 export const App = () => {
-  const showSettings = useSelector((state) => state.showSettings);
-  const rebuild = useSelector((state) => state.rebuild);
-  const settings = useSelector((state) => state.settings);
+  const showSettings = useSelector((state) => state.main.showSettings);
+  const rebuild = useSelector((state) => state.main.rebuild);
+  const settings = useSelector((state) => state.main.settings);
 
   const dispatch = useDispatch();
   useEffect(() => {

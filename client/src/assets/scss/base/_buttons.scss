@@ -53,4 +53,10 @@ button{
   padding: 0;
   pointer-events: auto;
   cursor: pointer;
+
+  &:disabled{
+    color: $color-text-disabled;
+    background-color: $disabled-back;
+    pointer-events: none;
+  }
 }

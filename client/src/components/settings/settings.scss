@@ -38,7 +38,7 @@
     font-size: $font-size-secondary;
   }
 
-  input:not([type="submit"]){
+  input{
     padding-left: 13px;
     width: $width-input;
     height: $height-main-elem;
@@ -48,12 +48,12 @@
     line-height: $font-size-build;
   }
 
-  input:focus:not([type="submit"]){
+  input{
     border-color: $enabled-light-border-focus;
     outline: none;
   }
 
-  input[type="submit"]{
+  .submit{
     display: inline-block;
     padding: 0 20px;
   }
@@ -79,6 +79,13 @@
   height: $height-main-elem;
   line-height: $height-main-elem;
   margin-left: 8px;
+
+  a{
+    color:inherit;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .red-star{
@@ -96,7 +103,7 @@
     width: 100%;
     padding: 0 16px;
 
-    input:not([type="submit"]), input{
+    input:not([type="submit"]):not([type="button"]), input{
       width: 100%;
     }
 
@@ -107,5 +114,20 @@
   .cancel {
     width: 100%;
     margin-left: 0;
+  }
+}
+
+.modal{
+  &-error{
+    color: red;
+  }
+  &-success{
+    color: green;
+  }
+
+  &-error, &-success{
+    display: inline-block;
+    margin-left: 8px;
+    font-weight: bold;
   }
 }

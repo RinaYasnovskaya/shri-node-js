@@ -3,4 +3,6 @@ export { showSettings,
         mainPage,
         setRebuild,
         setListBuilds,
-        setSettings, } from './actions-types';
+        setSettings,
+        settingsIsDone,
+        settingsResult } from './actions-types';

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBuildsMdw } from '../../../actions';
 
 export const BuildList = () => {
-  const builds  = useSelector((state) => state.builds);
+  const builds  = useSelector((state) => state.main.builds);
   const dispatch = useDispatch();
 
   useEffect(() => {

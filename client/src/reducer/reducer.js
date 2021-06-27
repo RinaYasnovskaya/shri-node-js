@@ -1,8 +1,10 @@
 const defaultState = {
   showSettings: true,
   rebuild: false,
-  builds: null,
+  builds: [],
   settings: {},
+  settingsIsDone: null,
+  settingsResult: {}
 };
 
 export const storeReducer = (state = defaultState, action) => {
@@ -34,6 +36,16 @@ export const storeReducer = (state = defaultState, action) => {
       return {
         ...state,
         settings: action.payload
+      }
+    case 'SETTINGS_IS_DONE':
+      return {
+        ...state,
+        settingsIsDone: action.payload
+      }
+    case 'SETTINGS_RESULT':
+      return {
+        ...state,
+        settingsResult: action.payload
       }
     default:
       return state;

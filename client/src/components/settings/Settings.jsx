@@ -5,33 +5,7 @@ import { mainPage } from '../../reducer';
 import { Field, reduxForm } from 'redux-form'
 import './settings.scss';
 import { postSettingsAsync } from '../../actions';
-
-const validate = values => {
-  const errors = {};
-  if (!values.repoName) {
-    errors.repoName = 'Required';
-  } else if (!values.buildCommand) {
-    errors.buildCommand = 'Required';
-  } else if (+values.time < 0) {
-    errors.time = 'err';
-  }
-  return errors;
-}
-
-const renderField = ({
-  input,
-  placeholder,
-  type,
-  id,
-  name,
-  meta: { touched, error }
-}) => {
-  const styles = (touched && error) ? {borderColor: 'red'} : {};
-
-  return (
-    <input {...input} style={styles} id={id} name={name} placeholder={placeholder} type={type} />
-  )
-}
+import { validate, renderField } from './utils';
 
 const SettingsForm = () => {
   const [disabled, setDisabled] = useState(false);

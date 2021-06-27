@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { BuildCard } from './BuildCard';
 import './buildList.scss';
 import './buildCard.scss';
-import { buildList } from '../../../js/test-backend';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBuildsMdw } from './getBuildsMdw';
 

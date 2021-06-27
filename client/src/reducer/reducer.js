@@ -59,6 +59,10 @@ export const storeReducer = (state = defaultState, action) => {
         ...state,
         buildLog: action.payload
       }
+    case 'START_BUILD':
+      return {
+        ...state,
+      }
     default:
       return state;
   }

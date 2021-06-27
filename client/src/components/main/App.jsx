@@ -9,6 +9,7 @@ export const App = () => {
   const showSettings = useSelector((state) => state.main.showSettings);
   const rebuild = useSelector((state) => state.main.rebuild);
   const settings = useSelector((state) => state.main.settings);
+  const check = Object.keys(settings).length === 0;
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,6 +22,7 @@ export const App = () => {
         settings={showSettings}
         rebuild={rebuild}
         repoName={settings.repoName}
+        settingsExist={check}
       />
       <div className="header-content">
         <Switch>
@@ -28,7 +30,7 @@ export const App = () => {
             return (
               <>
                 {
-                  settings ? <BuildList /> : <StartPage />
+                  !check ? <BuildList /> : <StartPage />
                 }
               </>
             )

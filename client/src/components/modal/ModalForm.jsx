@@ -1,14 +1,18 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import { runBuild } from '../builds/runBuild';
 
 const ModalFormFields = ({ onCancel }) => {
   const { modal } = useSelector((state) => state.form);
+  const history = useHistory();
+  const dispatch = useDispatch();
 
   const onStartBuild = (e) => {
     e.preventDefault();
     if (modal.values.hash) {
-//TODO: все ок приходит айди
+      dispatch(runBuild(modal.values.hash, history));
     }
   }
 

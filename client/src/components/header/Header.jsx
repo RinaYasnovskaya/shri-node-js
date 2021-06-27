@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
 import { Modal } from '../index';
 import { mainPage, showSettings } from '../../reducer';
 import './header.scss';
+import { runBuild } from '../builds/runBuild';
 
-export const Header = ({settings, rebuild, repoName}) => {
+export const Header = ({settings, rebuild, repoName, settingsExist}) => {
   const textClassSettings = ((repoName || rebuild) && settings)
                             ? ['little', '']
                             : ['long', 'Settings'];
 
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const buildsDetails = useSelector((state) => state.main.buildsDetails);
+  const commitHashBuild = buildsDetails ? buildsDetails.data.commitHash : '';
 
   const path = window.location.href.split('/');
   const url = path[path.length-1];
@@ -33,17 +37,24 @@ export const Header = ({settings, rebuild, repoName}) => {
     return setIsOpen(false);
   }
 
+  const onClickRebuild = (e) => {
+    e.preventDefault();
+    dispatch(runBuild(commitHashBuild, history));
+  }
+
   return (
     <div className="header">
       <Link to="/" className="header__title" onClick={onClickTitle}>
-        {(url == 'settings') ? <h1 className="header__title-main">{titleHead}</h1>
+        {((url == 'settings') || settingsExist) ? <h1 className="header__title-main">{titleHead}</h1>
               : <h2 className="header__title-repo" >{repoName}</h2>}
       </Link>
       <div className="header__buttons">
-        { (!rebuild && url !== 'settings')
+        { (!rebuild && url !== 'settings' && !settingsExist)
           ? <button className="button button_light button__run" onClick={onClickModal}>Run Build</button>
           : ''}
-        { rebuild ? <button className="button button_light button__rebuild">Rebuild</button> : ''}
+        { rebuild
+          ? <button className="button button_light button__rebuild" onclick={onClickRebuild}>Rebuild</button>
+          : ''}
         { (settings && url !== 'settings')
           ? <Link  to="/settings"
               className={

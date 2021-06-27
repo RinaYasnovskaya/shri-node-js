@@ -7,4 +7,5 @@ export { showSettings,
         settingsIsDone,
         settingsResult,
         setBuildDetails,
-        setBuildLog } from './actions-types';
+        setBuildLog,
+        startBuild } from './actions-types';

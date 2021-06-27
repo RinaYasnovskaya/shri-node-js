@@ -29,15 +29,19 @@ export const settingsIsDone = (isDone) => ({
 
 export const settingsResult = (result) => ({
   type: 'SETTINGS_RESULT',
-  payload: result
+  payload: result,
 });
 
 export const setBuildDetails = (build) => ({
   type: 'SET_BUILD_DETAILS',
-  payload: build
+  payload: build,
 });
 
 export const setBuildLog = (buildLogs) => ({
   type: 'SET_BUILD_LOG',
-  payload: buildLogs
+  payload: buildLogs,
 });
+
+export const startBuild = () => ({
+  type: 'START_BUILD',
+})

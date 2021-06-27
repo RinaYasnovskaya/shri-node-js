@@ -17,7 +17,7 @@ export const BuildList = () => {
 
   return (
     <div className="build-list">
-      { data.map(item => <BuildCard item={item} key={item.buildNumber} />) }
+      { builds && builds.map(item => <BuildCard item={item} key={item.buildNumber} />) }
       <button key="button-show" className="button button_light button__show" >Show more</button>
     </div>
   );

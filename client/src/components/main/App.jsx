@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Footer, Header, StartPage, BuildList, BuildDetails, Settings } from '../index';
 import '../../assets/scss/main.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSettingsAsync } from '../../actions';
+import { getSettingsAsync } from './getSettingsAsync';
 
 export const App = () => {
   const showSettings = useSelector((state) => state.main.showSettings);

@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, withRouter } from 'react-router';
 import { BuildCard } from '../build-list/BuildCard';
 import './buildDetails.scss';
 import '../build-list/buildCard.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBuildInformation } from './getBuildsInformation';
 
-const BuildDetail = (props) => {
-  const { location: { item } } = props;
+const BuildDetail = () => {
   const { buildId } = useParams();
+  const buildsDetails = useSelector((state) => state.buildsDetails);
+  const buildsLog = useSelector((state) => state.buildsLog);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBuildInformation(buildId));
+  }, []);
 
   return (
     <div className="build-details">
-      <BuildCard item={item} />
+      <BuildCard item={buildsDetails} />
       <div className="log">
         <pre>{`
                 Starting type checking and linting service...

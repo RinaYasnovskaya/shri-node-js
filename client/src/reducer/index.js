@@ -5,4 +5,6 @@ export { showSettings,
         setListBuilds,
         setSettings,
         settingsIsDone,
-        settingsResult } from './actions-types';
+        settingsResult,
+        setBuildDetails,
+        setBuildLog } from './actions-types';

@@ -31,3 +31,13 @@ export const settingsResult = (result) => ({
   type: 'SETTINGS_RESULT',
   payload: result
 });
+
+export const setBuildDetails = (build) => ({
+  type: 'SET_BUILD_DETAILS',
+  payload: build
+});
+
+export const setBuildLog = (buildLogs) => ({
+  type: 'SET_BUILD_LOG',
+  payload: buildLogs
+});

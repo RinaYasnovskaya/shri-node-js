@@ -4,7 +4,9 @@ const defaultState = {
   builds: [],
   settings: {},
   settingsIsDone: null,
-  settingsResult: {}
+  settingsResult: {},
+  buildDetails: {},
+  buildLog: null
 };
 
 export const storeReducer = (state = defaultState, action) => {
@@ -46,6 +48,16 @@ export const storeReducer = (state = defaultState, action) => {
       return {
         ...state,
         settingsResult: action.payload
+      }
+    case 'SET_BUILD_DETAILS':
+      return {
+        ...state,
+        buildDetails: action.payload
+      }
+    case 'SET_BUILD_LOG':
+      return {
+        ...state,
+        buildLog: action.payload
       }
     default:
       return state;

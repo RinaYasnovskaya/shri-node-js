@@ -8,14 +8,28 @@ const execFileAsync = util.promisify(execFile);
 async function postInfoBuild(jsonObj, response) {
   const TOKEN = process.env.AUTH_TOKEN;
 
-  const res = await axios.post('https://shri.yandex/hw/api/build/request', jsonObj, {
+  const resReq = await axios.post('https://shri.yandex/hw/api/build/request', jsonObj, {
     headers: {
       Authorization: `Bearer ${TOKEN}`,
       'Content-Type': 'application/json',
     },
   });
 
-  response.json(res.data);
+  const { data: id } = resReq.data;
+  const time = new Date();
+  const dateTime = new Date(time.getTime() - (time.getTimezoneOffset() * 60000)).toJSON();
+
+  axios.post('https://shri.yandex/hw/api/build/start', {
+    buildId: id,
+    dateTime,
+  }, {
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  response.json(resReq.data);
 }
 
 module.exports = async (request, response) => {

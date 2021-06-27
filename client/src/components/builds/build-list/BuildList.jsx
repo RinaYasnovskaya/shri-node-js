@@ -4,7 +4,7 @@ import './buildList.scss';
 import './buildCard.scss';
 import { buildList } from '../../../js/test-backend';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBuildsMdw } from '../../../actions';
+import { getBuildsMdw } from './getBuildsMdw';
 
 export const BuildList = () => {
   const builds  = useSelector((state) => state.main.builds);

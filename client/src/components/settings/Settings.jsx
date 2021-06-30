@@ -28,7 +28,7 @@ const SettingsForm = () => {
 
       if (buildCommand && repoName && +time >= 0 ) {
         const result = {
-          mainBranch: mainBranch ? mainBranch : 'main',
+          mainBranch: mainBranch ? mainBranch : 'master',
           buildCommand,
           repoName,
           period: time ? time : 100,

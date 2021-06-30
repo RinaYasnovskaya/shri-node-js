@@ -103,11 +103,11 @@
     width: 100%;
     padding: 0 16px;
 
-    input:not([type="submit"]):not([type="button"]), input{
+    input, .submit{
       width: 100%;
     }
 
-    input[type="submit"] {
+    .submit {
       margin-bottom: 12px;
     }
   }

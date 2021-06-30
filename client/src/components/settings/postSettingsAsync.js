@@ -6,6 +6,7 @@ export const postSettingsAsync = (settings, funcDisabled) => async (dispatch) =>
   axios
     .post('http://localhost:3000/api/settings', {...settings })
     .then((response) => {
+      console.log('answer: ', response.data)
       dispatch(settingsIsDone('done'));
       funcDisabled(false);
       dispatch(settingsResult(response.data));

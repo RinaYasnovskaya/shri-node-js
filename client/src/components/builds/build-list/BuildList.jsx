@@ -13,8 +13,6 @@ export const BuildList = () => {
     dispatch(getBuildsMdw());
   },[]);
 
-  const { data } = buildList;
-
   return (
     <div className="build-list">
       { builds && builds.map(item => <BuildCard item={item} key={item.buildNumber} />) }

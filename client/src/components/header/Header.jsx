@@ -14,8 +14,8 @@ export const Header = ({settings, rebuild, repoName, settingsExist}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const buildsDetails = useSelector((state) => state.main.buildsDetails);
-  const commitHashBuild = buildsDetails ? buildsDetails.data.commitHash : '';
+  const buildsDetails = useSelector((state) => state.main.buildDetails);
+  const commitHashBuild = buildsDetails ? buildsDetails.data?.commitHash : '';
 
   const path = window.location.href.split('/');
   const url = path[path.length-1];
@@ -53,7 +53,7 @@ export const Header = ({settings, rebuild, repoName, settingsExist}) => {
           ? <button className="button button_light button__run" onClick={onClickModal}>Run Build</button>
           : ''}
         { rebuild
-          ? <button className="button button_light button__rebuild" onclick={onClickRebuild}>Rebuild</button>
+          ? <button className="button button_light button__rebuild" onClick={onClickRebuild}>Rebuild</button>
           : ''}
         { (settings && url !== 'settings')
           ? <Link  to="/settings"

@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { setRebuild } from '../../../reducer';
 
-const BuildCardStuct = ({ item }) => {
+export const BuildCard = ({ item }) => {
   const { id,
           buildNumber,
           commitMessage,
@@ -15,10 +14,10 @@ const BuildCardStuct = ({ item }) => {
           start,
           duration } = item;
 
-  const shortCommitHash = commitHash.slice(0, 7);
+  const shortCommitHash = commitHash?.slice(0, 7);
   const date = Date(start).split(' ');
   const readyDate = `${date[2]} ${date[1]}, ${date[4].substr(0, 5)}`;
-  const lowerStatus = status.toLowerCase();
+  const lowerStatus = status === 'InProgress' ? 'waiting' : status?.toLowerCase();
   const dispatch = useDispatch();
 
   const onClickLink = () => {
@@ -48,5 +47,3 @@ const BuildCardStuct = ({ item }) => {
     </Link>
   );
 };
-
-export const BuildCard = withRouter(BuildCardStuct);

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { startBuild } from '../../reducer';
 
-export const runBuild = (hash, history) => async (dispatch) => {
+export const runBuild = (hash, history) => async () => {
   const response = await axios.post(`http://localhost:3000/api/builds/${hash}`);
-  dispatch(startBuild());
-  const { data: id } = response.data;
-  history.push(`/build/${id}`);
+  console.log('res: ', response.data);
+  // const { data: { id } } = response.data;
+  window.location.href = `/`;
 };

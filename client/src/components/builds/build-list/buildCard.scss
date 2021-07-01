@@ -37,13 +37,13 @@
     font-weight: 500px;
     padding-right: 4px;
 
-    &_done{
+    &_success{
       color: $color-done;
     }
     &_fail{
       color: $color-fail;
     }
-    &_waiting{
+    &_waiting, &_inprogress{
       color: $color-waiting;
     }
   }

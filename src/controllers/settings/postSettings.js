@@ -4,7 +4,7 @@ const process = require('process');
 const db = require('../../entities/Database');
 
 module.exports = async (request, response) => {
-  const { repoName, mainBranch } = request.body;
+  const { repoName, mainBranch, buildCommand } = request.body;
   const TOKEN = process.env.AUTH_TOKEN;
 
   try {
@@ -19,6 +19,7 @@ module.exports = async (request, response) => {
       const repoNameArr = repoName.split('/');
       process.env.NAME_REPO = repoNameArr[repoNameArr.length - 1];
       const pathToClone = `https://github.com/${repoName}.git`;
+      process.env.BUILD_COMMAND = buildCommand;
 
       exec(`git clone ${pathToClone} local`, () => {
         exec(`

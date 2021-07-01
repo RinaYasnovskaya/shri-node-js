@@ -1,0 +1,9 @@
+{
+	"settings": {
+		"mainBranch": "main",
+		"buildCommand": "npm run build",
+		"repoName": "RinaYasnovskaya/test",
+		"period": "30"
+	},
+	"listOfBuilds": {}
+}

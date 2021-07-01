@@ -4,7 +4,7 @@ const process = require('process');
 const db = require('../../entities/Database');
 
 module.exports = async (request, response) => {
-  const { repoName } = request.body;
+  const { repoName, mainBranch } = request.body;
   const TOKEN = process.env.AUTH_TOKEN;
 
   try {
@@ -20,12 +20,15 @@ module.exports = async (request, response) => {
       process.env.NAME_REPO = repoNameArr[repoNameArr.length - 1];
       const pathToClone = `https://github.com/${repoName}.git`;
 
-      exec(`git clone ${pathToClone} local`, async (err, out) => {
-        if (err) {
-          console.log(err.message);
-        } else {
-          console.log(out);
-
+      exec(`git clone ${pathToClone} local`, () => {
+        exec(`
+          cd local
+          git checkout ${mainBranch}
+        `, async (errr) => {
+          if (errr) {
+            console.error(errr);
+            return;
+          }
           db.insertSettings(request.body);
 
           const res = await axios.post('https://shri.yandex/hw/api/conf', request.body, {
@@ -36,10 +39,11 @@ module.exports = async (request, response) => {
           });
 
           response.json(res.data);
-        }
+        });
       });
     }
   } catch (error) {
+    console.log(error);
     response.json(error.message);
   }
 };

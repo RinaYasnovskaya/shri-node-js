@@ -14,10 +14,16 @@
   &__left{
     &-part{
       display: flex;
+      width: 70%;
+    }
+
+    &-inner{
+      width: 100%;
     }
 
     &-top{
       padding-bottom: 8px;
+      display: flex;
     }
 
     &-bottom{
@@ -51,6 +57,10 @@
   &__description{
     font-size: $font-size-build;
     font-weight: 400;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__title, &__description{

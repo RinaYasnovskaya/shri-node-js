@@ -1,12 +1,14 @@
 const util = require('util');
 const process = require('process');
-const { execFile } = require('child_process');
+const { execFile, exec } = require('child_process');
 const axios = require('axios');
+const db = require('../../entities/Database');
 
 const execFileAsync = util.promisify(execFile);
 
-async function postInfoBuild(jsonObj, response) {
+async function postInfoBuild(jsonObj, response, commitHash) {
   const TOKEN = process.env.AUTH_TOKEN;
+  console.log('in postInfoBuild: ', commitHash);
 
   const resReq = await axios.post('https://shri.yandex/hw/api/build/request', jsonObj, {
     headers: {
@@ -14,6 +16,8 @@ async function postInfoBuild(jsonObj, response) {
       'Content-Type': 'application/json',
     },
   });
+
+  console.log('resReq data: ', resReq.data);
 
   const { data: id } = resReq.data;
   const time = new Date();
@@ -29,13 +33,24 @@ async function postInfoBuild(jsonObj, response) {
     },
   });
 
+  exec(`
+    git checkout ${commitHash}
+  `, (err, stdout, stderr) => {
+    if (err) {
+      console.error(err);
+    }
+    const { buildCommand } = db.getSettings();
+    console.log(buildCommand);
+    console.log(`stdoud: ${stdout}`);
+    console.log(`stderr: ${stderr}`);
+  });
+
   response.json(resReq.data);
 }
 
 module.exports = async (request, response) => {
   const { params: { commitHash } } = request;
   const dir = process.cwd();
-  const nameRepo = process.env.NAME_REPO;
 
   const promiseBranch = execFileAsync(
     'git',
@@ -44,7 +59,8 @@ module.exports = async (request, response) => {
       '--contains',
       commitHash,
     ],
-    { cwd: `${dir}/${nameRepo}` },
+    // { cwd: `${dir}/${nameRepo}` },
+    { cwd: `${dir}/local` },
   );
 
   const promiseComit = execFileAsync(
@@ -56,11 +72,13 @@ module.exports = async (request, response) => {
       '--pretty=format:%H[split]%an[split]%s',
       '--summary',
     ],
-    { cwd: `${dir}/${nameRepo}` },
+    // { cwd: `${dir}/${nameRepo}` },
+    { cwd: `${dir}/local` },
   );
 
   Promise.all([promiseBranch, promiseComit])
     .then((values) => {
+      console.log('promises values: ', values);
       const branchName = values[0].stdout
         .replace('*', '')
         .split('\n')[0]
@@ -75,7 +93,7 @@ module.exports = async (request, response) => {
         authorName: comitInfo[1],
       };
 
-      postInfoBuild(JSON.stringify(resultObj), response);
+      postInfoBuild(JSON.stringify(resultObj), response, commitHash);
     })
     .catch((error) => {
       response.json(error.message);

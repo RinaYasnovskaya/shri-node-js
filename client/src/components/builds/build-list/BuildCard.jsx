@@ -15,7 +15,7 @@ const BuildCardStuct = ({ item }) => {
           start,
           duration } = item;
 
-  const shortCommitHash = commitHash.split('-')[0];
+  const shortCommitHash = commitHash.slice(0, 7);
   const date = Date(start).split(' ');
   const readyDate = `${date[2]} ${date[1]}, ${date[4].substr(0, 5)}`;
   const lowerStatus = status.toLowerCase();
@@ -29,7 +29,7 @@ const BuildCardStuct = ({ item }) => {
     <Link to={{pathname: `/build/${id}`, item: item}} onClick={onClickLink} className="card">
       <div className="card__left-part">
         <img src={`../../assets/img/${lowerStatus}.svg`} alt={status} className="card__status" />
-        <div>
+        <div className="card__left-inner" >
           <div className="card__left-top">
             <span className={`card__title card__title_${lowerStatus}`}>#{buildNumber}</span>
             <span className="card__description">{commitMessage}</span>

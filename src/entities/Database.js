@@ -48,6 +48,10 @@ class Database extends EventEmitter {
     return Object.keys(this.listOfBuilds).length + 1;
   }
 
+  getSettings() {
+    return this.settings;
+  }
+
   toJSON() {
     return {
       settings: this.settings,

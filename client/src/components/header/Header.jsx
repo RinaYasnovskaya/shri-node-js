@@ -45,18 +45,29 @@ export const Header = ({settings, rebuild, repoName, settingsExist}) => {
   return (
     <div className="header">
       <Link to="/" className="header__title" onClick={onClickTitle}>
-        {((url == 'settings') || settingsExist) ? <h1 className="header__title-main">{titleHead}</h1>
-              : <h2 className="header__title-repo" >{repoName}</h2>}
+        {((url == 'settings') || settingsExist)
+          ? <h1 data-testid="title-main" className="header__title-main">{titleHead}</h1>
+          : <h1 className="header__title-repo" >{repoName}</h1>}
       </Link>
       <div className="header__buttons">
         { (!rebuild && url !== 'settings' && !settingsExist)
-          ? <button className="button button_light button__run" onClick={onClickModal}>Run Build</button>
+          ? <button
+              data-testid="btn-run"
+              className="button button_light button__run"
+              onClick={onClickModal}
+            >Run Build</button>
           : ''}
         { rebuild
-          ? <button className="button button_light button__rebuild" onClick={onClickRebuild}>Rebuild</button>
+          ? <button
+              data-testid="btn-rebuild"
+              className="button button_light button__rebuild"
+              onClick={onClickRebuild}
+            >Rebuild</button>
           : ''}
         { (settings && url !== 'settings')
-          ? <Link  to="/settings"
+          ? <Link
+              data-testid="link-settings"
+              to="/settings"
               className={
                 `button button_light button__settings button__settings_${textClassSettings[0]}`
               }

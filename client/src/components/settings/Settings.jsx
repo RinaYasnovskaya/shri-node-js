@@ -47,7 +47,7 @@ const SettingsForm = () => {
   return (
     <form action="" className="form">
       <div className="form__title">
-        <p className="form__title-main" id="title_settings">Settings</p>
+        <p className="form__title-main" id="title_settings" data-testid="ttl-settings">Settings</p>
         <p className="form__title-description" id="description_settings">
           Configure repository connection and synchronization settings.
         </p>

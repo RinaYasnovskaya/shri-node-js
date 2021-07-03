@@ -1,4 +1,4 @@
-const defaultState = {
+export const defaultState = {
   showSettings: true,
   rebuild: false,
   builds: [],

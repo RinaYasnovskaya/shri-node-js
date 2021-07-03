@@ -6,7 +6,17 @@
   "scripts": {
     "start": "webpack serve --open --config ./build-webpack/webpack.dev.conf.js",
     "build": "webpack --config ./build-webpack/webpack.build.conf.js",
-    "lint": "node node_modules/eslint/bin/eslint.js ./src/index.js"
+    "lint": "node node_modules/eslint/bin/eslint.js ./src/index.js",
+    "test": "jest test.jsx --env=jsdom"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/__mocks__/styleMock.js"
+    }
   },
   "author": "",
   "license": "ISC",
@@ -45,6 +55,14 @@
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.14.5",
+    "@jest/globals": "^27.0.6",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/user-event": "^13.1.9",
+    "babel-jest": "^27.0.6",
+    "history": "^4.10.1",
+    "jest": "^27.0.6",
+    "jsdom": "^16.6.0",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

@@ -14,7 +14,6 @@ const PATHS = {
 const PAGES_DIR = `${PATHS.src}/public/`;
 
 module.exports = {
-
   externals: {
     paths: PATHS
   },

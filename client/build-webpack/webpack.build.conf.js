@@ -1,10 +1,13 @@
-const { merge } = require('webpack-merge')
-const baseWebpackConfig = require('./webpack.base.conf')
+const { merge } = require('webpack-merge');
+const baseWebpackConfig = require('./webpack.base.conf');
+const FindUnusedCodePlugin = require('../FindUnusedCodePlugin');
 
 const buildWebpackConfig = merge(baseWebpackConfig, {
 
   mode: 'production',
-  plugins: []
+  plugins: [
+    new FindUnusedCodePlugin(),
+  ]
 })
 
 module.exports = new Promise((resolve, reject) => {

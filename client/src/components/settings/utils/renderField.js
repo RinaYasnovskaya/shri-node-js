@@ -5,12 +5,11 @@ export const renderField = ({
   placeholder,
   type,
   id,
-  name,
   meta: { touched, error }
 }) => {
   const styles = (touched && error) ? {borderColor: 'red'} : {};
 
   return (
-    <input {...input} style={styles} id={id} name={name} placeholder={placeholder} type={type} />
+    <input {...input} style={styles} id={id} placeholder={placeholder} type={type} />
   )
 };

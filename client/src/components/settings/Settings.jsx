@@ -67,13 +67,13 @@ const SettingsForm = () => {
           Synchronize every <Field name="time" id="time" component={renderField} min="0" type="number" /> minutes
         </label>
       </div>
-        <button disabled={disabled} className="button button_bright submit" onClick={submitForm}>Save</button>
-        <button disabled={disabled} className="button button_light cancel" onClick={onClickCancel}>
+        <button disabled={disabled} id="submit" className="button button_bright submit" onClick={submitForm}>Save</button>
+        <button disabled={disabled} id="cancel" className="button button_light cancel" onClick={onClickCancel}>
           <Link to="/">Cancel</Link>
         </button>
-        { (settingsIsDone === 'error') && <span className="modal-error">Error to save settings</span> }
-        { (settingsIsDone === 'done') &&  <span className="modal-success">Success</span> }
-        { !isFullData && <span className="modal-error">Required fields are empty</span> }
+        { (settingsIsDone === 'error') && <span id="err-save" className="modal-error">Error to save settings</span> }
+        { (settingsIsDone === 'done') &&  <span id="scs-save" className="modal-success">Success</span> }
+        { !isFullData && <span id="err-submit" className="modal-error">Required fields are empty</span> }
     </form>
   );
 };

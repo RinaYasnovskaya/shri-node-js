@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index",
-    "server": "nodemon src/index"
+    "server": "nodemon src/index",
+    "nightwatch-tests": "npx nightwatch"
   },
   "repository": {
     "type": "git",
@@ -18,10 +19,14 @@
   },
   "homepage": "https://github.com/RinaYasnovskaya/shri-node-js#readme",
   "devDependencies": {
+    "chromedriver": "^91.0.1",
     "eslint": "^7.28.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-base": "^14.2.1",
-    "prettier": "^2.3.1"
+    "geckodriver": "^2.0.1",
+    "nightwatch": "^1.7.7",
+    "prettier": "^2.3.1",
+    "selenium-server": "^3.141.59"
   },
   "dependencies": {
     "axios": "^0.21.1",

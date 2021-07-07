@@ -5,8 +5,18 @@ class FindUnusedCodePlugin {
     compiler.hooks.afterCompile.tap('Find Unused Code Plugin', (
     compilation
     ) => {
-      // console.log(compilation.);
+      const usedModule = compilation.assets; // ? modules
       const resultFileSystem = getAllFiles('./src');
+
+      const resultArray = [];
+
+      resultFileSystem.forEach((el) => {
+        if (!usedModule.includes(el)) {
+          resultArray.push(el);
+        }
+      });
+
+      fs.writeFileSync('./unused.json', JSON.stringify(resultArray));
     })
   }
 }

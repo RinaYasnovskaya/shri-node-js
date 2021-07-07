@@ -1,3 +1,5 @@
 node_modules
 dist
 local
+tests_output
+geckodriver.log

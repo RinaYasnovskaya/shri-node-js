@@ -18,7 +18,7 @@ export const BuildDetails = () => {
 
   return (
     <div className="build-details">
-      {/* <BuildCard item={buildsDetails} /> */}
+      <BuildCard item={buildsDetails} />
       <div className="log">
         <pre>{buildsLog}</pre>
       </div>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { mainPage } from '../../reducer';
 import { Field, reduxForm } from 'redux-form';
 import './settings.scss';
-import { postSettingsAsync } from './postSettingsAsync';
+import { postSettingsAsync } from '../../actions';
 import { validate, renderField } from './utils';
 
 const SettingsForm = () => {

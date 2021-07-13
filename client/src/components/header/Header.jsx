@@ -4,7 +4,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Modal } from '../index';
 import { mainPage, showSettings } from '../../reducer';
 import './header.scss';
-import { runBuild } from '../builds/runBuild';
+import { runBuild } from '../../actions';
 
 export const Header = ({settings, rebuild, repoName, settingsExist}) => {
   const textClassSettings = ((repoName || rebuild) && settings)

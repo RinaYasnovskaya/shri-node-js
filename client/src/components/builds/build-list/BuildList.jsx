@@ -3,7 +3,7 @@ import { BuildCard } from './BuildCard';
 import './buildList.scss';
 import './buildCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBuildsMdw } from './getBuildsMdw';
+import { getBuildsMdw } from '../../../actions';
 
 export const BuildList = () => {
   const builds  = useSelector((state) => state.main.builds);

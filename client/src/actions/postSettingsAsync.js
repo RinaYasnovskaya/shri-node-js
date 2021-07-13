@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { settingsResult, settingsIsDone } from '../../reducer';
+import { settingsResult, settingsIsDone } from '../reducer';
 
 export const postSettingsAsync = (settings, funcDisabled) => async (dispatch) => {
   dispatch(settingsIsDone('start'));

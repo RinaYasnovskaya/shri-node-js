@@ -4,7 +4,7 @@ import { BuildCard } from '../build-list/BuildCard';
 import './buildDetails.scss';
 import '../build-list/buildCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBuildInformation } from './getBuildsInformation';
+import { getBuildInformation } from '../../../actions';
 
 export const BuildDetails = () => {
   const { buildId } = useParams();

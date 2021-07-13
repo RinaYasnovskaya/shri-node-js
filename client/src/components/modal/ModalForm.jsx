@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { runBuild } from '../builds/runBuild';
+import { runBuild } from '../../actions';
 
 const ModalFormFields = ({ onCancel }) => {
   const { modal } = useSelector((state) => state.form);

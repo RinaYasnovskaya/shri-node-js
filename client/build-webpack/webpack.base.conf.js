@@ -23,7 +23,7 @@ module.exports = {
     // module: `${PATHS.src}/your-module.js`,
   },
   output: {
-    filename: `${PATHS.assets}js/[name].[fullhash].js`,
+    // filename: `${PATHS.assets}js/[name].[fullhash].js`,
     path: PATHS.dist,
   },
   optimization: {
@@ -40,6 +40,11 @@ module.exports = {
   },
   module: {
     rules: [
+    {
+      test: /\.tsx?$/,
+      use: 'ts-loader',
+      exclude: '/node_modules/',
+    },
     {
       test: /\.(js|jsx)$/,
       loader: 'babel-loader',
@@ -84,7 +89,7 @@ module.exports = {
     }]
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.ts', '.tsx', '.js'],
   },
 
   plugins: [

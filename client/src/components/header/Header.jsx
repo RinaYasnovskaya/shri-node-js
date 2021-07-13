@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { Modal } from '../index';
 import { mainPage, showSettings } from '../../reducer';
 import './header.scss';
@@ -16,9 +16,10 @@ export const Header = ({settings, rebuild, repoName, settingsExist}) => {
   const history = useHistory();
   const buildsDetails = useSelector((state) => state.main.buildDetails);
   const commitHashBuild = buildsDetails ? buildsDetails.data?.commitHash : '';
+  const location = useLocation();
 
-  const path = window.location.href.split('/');
-  const url = path[path.length-1];
+  const path = location.pathname;
+  console.log(path);
   const titleHead = "School CI server";
 
   const onClickLinkSettings = () => {
@@ -45,17 +46,17 @@ export const Header = ({settings, rebuild, repoName, settingsExist}) => {
   return (
     <div className="header">
       <Link to="/" className="header__title" onClick={onClickTitle}>
-        {((url == 'settings') || settingsExist) ? <h1 className="header__title-main">{titleHead}</h1>
+        {((path == '/settings') || settingsExist) ? <h1 className="header__title-main">{titleHead}</h1>
               : <h2 className="header__title-repo" >{repoName}</h2>}
       </Link>
       <div className="header__buttons">
-        { (!rebuild && url !== 'settings' && !settingsExist)
+        { (!rebuild && path !== '/settings' && !settingsExist)
           ? <button className="button button_light button__run" onClick={onClickModal}>Run Build</button>
           : ''}
         { rebuild
           ? <button className="button button_light button__rebuild" onClick={onClickRebuild}>Rebuild</button>
           : ''}
-        { (settings && url !== 'settings')
+        { (settings && path !== '/settings')
           ? <Link  to="/settings"
               className={
                 `button button_light button__settings button__settings_${textClassSettings[0]}`

@@ -1,0 +1,103 @@
+@import '../../assets/scss/constants/colors';
+@import '../../assets/scss/constants/vars';
+
+.header{
+  display: flex;
+  align-items: center;
+  padding: 10px 100px;
+  justify-content: space-between;
+  height: 48px;
+  margin-bottom: 8px;
+
+  &__title{
+    font-size: $font-size-primary;
+    letter-spacing: 0.25px;
+    font-style: normal;
+    font-weight: 500;
+
+    &-main{
+      line-height: 28px;
+      color: $color-text-other;
+    }
+
+    &-repo{
+      line-height: 30px;
+      color: $color-text-primary;
+    }
+  }
+
+  &__buttons{
+    display: flex;
+  }
+}
+
+.button{
+  &__settings{
+    line-height: 28px;
+    padding-left: 10px;
+
+    &_long{
+      width: 87px;
+    }
+
+    &_little{
+      width: $height-other-buttons;
+      padding-left: 8px;
+    }
+
+    &::before{
+      background: url('../../assets/img/settings.svg');
+      margin: 8px 5px 8px 0;
+    }
+  }
+
+  &__run{
+    width: 95px;
+
+    &::before{
+      background: url('../../assets/img/play.svg');
+      background-repeat: no-repeat;
+      margin: 9px 6px 9px 0;
+    }
+  }
+
+  &__rebuild{
+    width: 84px;
+
+    &::before{
+      background-repeat: no-repeat;
+      background: url('../../assets/img/rebuild.svg');
+      margin-left: 0;
+    }
+  }
+
+  &__run, &__rebuild{
+    padding-left: 10px;
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  .header{
+    padding: 12px 16px;
+
+    &__title{
+      font-size: $font-size-number;
+    }
+
+    &__repo{
+      line-height: 20px;
+    }
+  }
+
+  .button{
+    &__run, &__rebuild{
+      width: 28px;
+      overflow: hidden;
+    }
+
+    &__run::before, &__rebuild::before{
+      position: relative;
+    }
+  }
+}

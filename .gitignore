@@ -1,2 +1,5 @@
 node_modules
-svdom
+dist
+local
+tests_output
+geckodriver.log

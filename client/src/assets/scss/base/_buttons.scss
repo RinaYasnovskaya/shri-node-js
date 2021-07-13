@@ -1,0 +1,62 @@
+@import '../constants/vars';
+@import '../constants/colors';
+
+.button{
+  border-radius: $border-radius-elems;
+  display: block;
+  font-size: $font-size-secondary;
+  font-style: normal;
+  font-weight: 400;
+  color: $color-text-primary;
+
+  &_bright{
+    background-color: $button-enabled-bright;
+    height: $height-main-elem;
+    line-height: $height-main-elem;
+
+    &:hover{
+      background-color: $button-enabled-bright-hover;
+    }
+    &:focus{
+      border: 2px solid $button-enabled-bright-border-focus;
+      outline: none;
+    }
+  }
+
+  &_light{
+    background-color: $button-enabled-light;
+    height: $height-other-buttons;
+    line-height: $height-other-buttons;
+    text-align: center;
+
+    &::before{
+      content: '';
+      display: block;
+      width: 12px;
+      height: 12px;
+      margin: 8px 5px 8px 8px;
+      position: absolute;
+    }
+
+    &:hover{
+      background-color: $button-enabled-light-hover;
+    }
+    &:focus{
+      border: 2px solid $enabled-light-border-focus;
+      outline: none;
+    }
+  }
+}
+
+button{
+  border: 0;
+  padding: 0;
+  pointer-events: auto;
+  cursor: pointer;
+
+  &:disabled{
+    color: $color-text-disabled;
+    background-color: $disabled-back;
+    pointer-events: none;
+  }
+}

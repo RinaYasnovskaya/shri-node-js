@@ -1,27 +1,69 @@
 const util = require('util');
 const process = require('process');
-const { execFile } = require('child_process');
+const { execFile, execSync } = require('child_process');
 const axios = require('axios');
 
 const execFileAsync = util.promisify(execFile);
 
-async function postInfoBuild(jsonObj, response) {
+async function postInfoBuild(obj, response, commitHash) {
   const TOKEN = process.env.AUTH_TOKEN;
+  const buildCommand = process.env.BUILD_COMMAND;
 
-  const res = await axios.post('https://shri.yandex/hw/api/build/request', jsonObj, {
-    headers: {
-      Authorization: `Bearer ${TOKEN}`,
-      'Content-Type': 'application/json',
-    },
-  });
+  try {
+    const resReq = await axios.post('https://shri.yandex/hw/api/build/request', obj, {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
-  response.json(res.data);
+    if (resReq.data) {
+      const { data: { id } } = resReq.data;
+      const time = new Date();
+      const dateTime = new Date(time.getTime() - (time.getTimezoneOffset() * 60000)).toJSON();
+      const body = {
+        buildId: id,
+        dateTime,
+      };
+
+      axios.post('https://shri.yandex/hw/api/build/start', { ...body }, {
+        headers: {
+          Authorization: `Bearer ${TOKEN}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      execSync(`
+        cd local
+        git checkout ${commitHash}
+        ${buildCommand}
+      `, async (err, stdout) => {
+        console.log(err, stdout);
+        const bodyFinish = {
+          buildId: id,
+          duration: 0,
+          success: true,
+          buildLog: stdout,
+        };
+
+        axios.post('https://shri.yandex/hw/api/build/finish', { ...bodyFinish }, {
+          headers: {
+            Authorization: `Bearer ${TOKEN}`,
+            'Content-Type': 'application/json',
+          },
+        });
+      });
+
+      response.json(resReq.data);
+    }
+  } catch (err) {
+    console.log('err:', err);
+  }
 }
 
 module.exports = async (request, response) => {
   const { params: { commitHash } } = request;
   const dir = process.cwd();
-  const nameRepo = process.env.NAME_REPO;
 
   const promiseBranch = execFileAsync(
     'git',
@@ -30,7 +72,7 @@ module.exports = async (request, response) => {
       '--contains',
       commitHash,
     ],
-    { cwd: `${dir}/${nameRepo}` },
+    { cwd: `${dir}/local` },
   );
 
   const promiseComit = execFileAsync(
@@ -42,7 +84,7 @@ module.exports = async (request, response) => {
       '--pretty=format:%H[split]%an[split]%s',
       '--summary',
     ],
-    { cwd: `${dir}/${nameRepo}` },
+    { cwd: `${dir}/local` },
   );
 
   Promise.all([promiseBranch, promiseComit])
@@ -61,7 +103,7 @@ module.exports = async (request, response) => {
         authorName: comitInfo[1],
       };
 
-      postInfoBuild(JSON.stringify(resultObj), response);
+      postInfoBuild(resultObj, response, commitHash);
     })
     .catch((error) => {
       response.json(error.message);

@@ -3,6 +3,7 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const process = require('process');
+const cors = require('cors');
 const { routerApi, routerMain } = require('./router');
 
 const app = express();
@@ -12,10 +13,8 @@ const server = http.createServer(app);
 app.set('views', path.join(__dirname, 'views'));
 app.set('views engine', 'ejs');
 
-app.use(express.static(path.join(__dirname, 'static')));
-app.use(express.static(path.join(__dirname, 'views')));
-app.engine('html', require('ejs').renderFile);
-
+app.use(express.static(path.resolve(__dirname, '..', 'client', 'dist')));
+app.use(cors());
 app.use(express.json(
   {
     type: 'application/json',

@@ -4,30 +4,47 @@ const process = require('process');
 const db = require('../../entities/Database');
 
 module.exports = async (request, response) => {
-  const { repoName } = request.body;
+  const { repoName, mainBranch, buildCommand } = request.body;
   const TOKEN = process.env.AUTH_TOKEN;
 
   try {
-    const res = await axios.post('https://shri.yandex/hw/api/conf', request.body, {
+    const deleteRes = await axios.delete('https://shri.yandex/hw/api/conf', {
       headers: {
         Authorization: `Bearer ${TOKEN}`,
         'Content-Type': 'application/json',
       },
     });
 
-    db.insertSettings(request.body);
+    if (deleteRes.status === 200) {
+      const repoNameArr = repoName.split('/');
+      process.env.NAME_REPO = repoNameArr[repoNameArr.length - 1];
+      const pathToClone = `https://github.com/${repoName}.git`;
+      process.env.BUILD_COMMAND = buildCommand;
 
-    const repoNameArr = repoName.split('/');
-    process.env.NAME_REPO = repoNameArr[repoNameArr.length - 1];
+      exec(`git clone ${pathToClone} local`, () => {
+        exec(`
+          cd local
+          git checkout ${mainBranch}
+        `, async (errr) => {
+          if (errr) {
+            console.error(errr);
+            return;
+          }
+          db.insertSettings(request.body);
 
-    exec(`git clone ${repoName}`, (err, out) => {
-      if (err) {
-        console.log(err.message);
-      } else {
-        response.json(res.data, out);
-      }
-    });
+          const res = await axios.post('https://shri.yandex/hw/api/conf', request.body, {
+            headers: {
+              Authorization: `Bearer ${TOKEN}`,
+              'Content-Type': 'application/json',
+            },
+          });
+
+          response.json(res.data);
+        });
+      });
+    }
   } catch (error) {
+    console.log(error);
     response.json(error.message);
   }
 };

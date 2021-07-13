@@ -1,0 +1,31 @@
+@import '../../assets/scss/constants/colors';
+@import '../../assets/scss/constants/vars';
+
+.start-page{
+  display: flex;
+  height: 92%;
+  align-items: center;
+
+  &__inner{
+    width: 264px;
+    height: 248px;
+    margin: auto;
+    text-align: center;
+    font-size: $font-size-secondary;
+
+    img{
+      display: block;
+      margin: 0 auto 32px;
+    }
+
+    span{
+      line-height: 16.25px;
+      color: $color-text-primary;
+    }
+  }
+}
+
+.button__start{
+  margin: 24px auto 0;
+  width: $width-settings;
+}

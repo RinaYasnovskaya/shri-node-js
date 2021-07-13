@@ -1,0 +1,35 @@
+@import '../../assets/scss/constants/colors';
+@import '../../assets/scss/constants/vars';
+
+.footer{
+  display: flex;
+  min-height: $height-footer;
+  background-color: $color-footer;
+  align-items: center;
+  padding: 10px 100px;
+  justify-content: space-between;
+
+  &__support, &__learning{
+    margin-right: 20px;
+  }
+
+  &__support, &__learning, &__lang, &__name{
+    color: $color-text-other;
+    font-size: $font-size-secondary;
+  }
+
+  &__support:hover, &__learning:hover, &__lang:hover {
+    color: $color-text-other-hover;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer{
+    padding: 10px 16px;
+    display: block;
+
+    &__left-elem{
+      margin-bottom: 8px;
+    }
+  }
+}

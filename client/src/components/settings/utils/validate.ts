@@ -1,5 +1,9 @@
-export const validate = values => {
-  const errors = {};
+interface Values {
+  [key: string]: string;
+}
+
+export const validate = (values: Values) => {
+  const errors: Values = {};
   if (!values.repoName) {
     errors.repoName = 'Required';
   } else if (!values.buildCommand) {

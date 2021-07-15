@@ -1,17 +1,18 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import * as React from 'react';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { runBuild } from '../../actions';
+import { RootState } from '../..';
 
-const ModalFormFields = ({ onCancel }) => {
-  const { modal } = useSelector((state) => state.form);
+const ModalFormFields: React.ComponentType<InjectedFormProps> = ({ onCancel }: any) => {
+  const { modal } = useSelector((state: RootState) => state.form);
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const onStartBuild = (e) => {
+  const onStartBuild = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (modal.values.hash) {
+    if (modal.values?.hash) {
       dispatch(runBuild(modal.values.hash, history));
     }
   }

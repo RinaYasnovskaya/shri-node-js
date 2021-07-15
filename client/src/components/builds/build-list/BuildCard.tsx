@@ -2,8 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setRebuild } from '../../../reducer';
+import { ItemValues } from './ItemValues';
 
-export const BuildCard = ({ item }) => {
+interface BuildCardProps {
+  item: ItemValues;
+}
+
+export const BuildCard: React.ComponentType<BuildCardProps> = ({ item }) => {
   const { id,
           buildNumber,
           commitMessage,
@@ -15,7 +20,7 @@ export const BuildCard = ({ item }) => {
           duration } = item;
 
   const shortCommitHash = commitHash?.slice(0, 7);
-  const date = Date(start).split(' ');
+  const date = new Date(start).toString().split(' ');
   const readyDate = `${date[2]} ${date[1]}, ${date[4].substr(0, 5)}`;
   const lowerStatus = status === 'InProgress' ? 'waiting' : status?.toLowerCase();
   const dispatch = useDispatch();
@@ -25,7 +30,7 @@ export const BuildCard = ({ item }) => {
   }
 
   return (
-    <Link to={{pathname: `/build/${id}`, item: item}} onClick={onClickLink} className="card">
+    <Link to={{pathname: `/build/${id}`}} onClick={onClickLink} className="card">
       <div className="card__left-part">
         <img src={`../../assets/img/${lowerStatus}.svg`} alt={status} className="card__status" />
         <div className="card__left-inner" >

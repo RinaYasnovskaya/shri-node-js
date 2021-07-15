@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { App } from './components';
+import { App } from './components/main/App';
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore, combineReducers } from 'redux';
@@ -12,6 +12,9 @@ const rootReducer = combineReducers({
   main: storeReducer,
   form: formReducer,
 })
+
+export type RootState = ReturnType<typeof rootReducer>;
+
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(

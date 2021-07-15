@@ -1,5 +1,17 @@
 import React from 'react';
 
+interface RenderFieldValues {
+  input: any;
+  placeholder: string;
+  type: string;
+  id: string;
+  name: string;
+  meta: {
+    touched: any;
+    error: any;
+  }
+}
+
 export const renderField = ({
   input,
   placeholder,
@@ -7,7 +19,7 @@ export const renderField = ({
   id,
   name,
   meta: { touched, error }
-}) => {
+}: RenderFieldValues) => {
   const styles = (touched && error) ? {borderColor: 'red'} : {};
 
   return (

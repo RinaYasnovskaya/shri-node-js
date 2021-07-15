@@ -4,9 +4,11 @@ import './buildList.scss';
 import './buildCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBuildsMdw } from '../../../actions';
+import { RootState } from '../../..';
+import { ItemValues } from './ItemValues';
 
-export const BuildList = () => {
-  const builds  = useSelector((state) => state.main.builds);
+export const BuildList: React.FC = () => {
+  const builds  = useSelector((state: RootState) => state.main.builds);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,7 +17,7 @@ export const BuildList = () => {
 
   return (
     <div className="build-list">
-      { builds && builds.map(item => <BuildCard item={item} key={item.buildNumber} />) }
+      { builds && builds.map((item: ItemValues) => <BuildCard item={item} key={item.buildNumber} />) }//TODO: написать интерфейс
       <button key="button-show" className="button button_light button__show" >Show more</button>
     </div>
   );

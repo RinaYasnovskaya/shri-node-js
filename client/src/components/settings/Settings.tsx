@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
+import React, { MouseEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { mainPage } from '../../reducer';
-import { Field, reduxForm } from 'redux-form';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import './settings.scss';
 import { postSettingsAsync } from '../../actions';
 import { validate, renderField } from './utils';
+import { RootState } from '../..';
 
-const SettingsForm = () => {
+const SettingsForm: React.ComponentType<InjectedFormProps> = () => {
   const [disabled, setDisabled] = useState(false);
   const [isFullData, setIsFullData] = useState(true);
 
   const dispatch = useDispatch();
-  const { settings } = useSelector((state) => state.form);
-  const settingsIsDone = useSelector((state) => state.main.settingsIsDone);
+  const { settings } = useSelector((state: RootState) => state.form);
+  const settingsIsDone = useSelector((state: RootState) => state.main.settingsIsDone);
 
-  const onClickCancel = (e) => {
+  const onClickCancel = (e: MouseEvent) => {
     e.preventDefault();
     dispatch(mainPage());
   };
 
-  const submitForm = (e) => {
+  const submitForm = (e: MouseEvent) => {
     e.preventDefault();
 
     if (settings.values) {

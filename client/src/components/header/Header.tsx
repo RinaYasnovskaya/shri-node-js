@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { Modal } from '../index';
+import { Modal } from '../modal/Modal';
 import { mainPage, showSettings } from '../../reducer';
 import './header.scss';
 import { runBuild } from '../../actions';
+import { RootState } from '../..';
 
-export const Header = ({settings, rebuild, repoName, settingsExist}) => {
+interface HeaderProps {
+  settings: any;
+  rebuild: boolean;
+  repoName: string;
+  settingsExist: boolean;
+}
+
+export const Header: React.FC<HeaderProps> = ({ settings, rebuild, repoName, settingsExist }) => {
   const textClassSettings = ((repoName || rebuild) && settings)
                             ? ['little', '']
                             : ['long', 'Settings'];
@@ -14,12 +23,11 @@ export const Header = ({settings, rebuild, repoName, settingsExist}) => {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  const buildsDetails = useSelector((state) => state.main.buildDetails);
+  const buildsDetails = useSelector((state: RootState) => state.main.buildDetails);
   const commitHashBuild = buildsDetails ? buildsDetails.data?.commitHash : '';
   const location = useLocation();
 
   const path = location.pathname;
-  console.log(path);
   const titleHead = "School CI server";
 
   const onClickLinkSettings = () => {
@@ -38,8 +46,8 @@ export const Header = ({settings, rebuild, repoName, settingsExist}) => {
     return setIsOpen(false);
   }
 
-  const onClickRebuild = (e) => {
-    e.preventDefault();
+  const onClickRebuild = (event: React.MouseEvent) => {
+    event.preventDefault();
     dispatch(runBuild(commitHashBuild, history));
   }
 

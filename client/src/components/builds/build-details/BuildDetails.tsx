@@ -4,16 +4,17 @@ import { BuildCard } from '../build-list/BuildCard';
 import './buildDetails.scss';
 import '../build-list/buildCard.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBuildInformation } from '../../../actions';
+import { getBuildsInformation } from '../../../actions';
+import { RootState } from '../../..';
 
-export const BuildDetails = () => {
-  const { buildId } = useParams();
-  const buildsDetails = useSelector((state) => state.main.buildDetails);
-  const buildsLog = useSelector((state) => state.main.buildLog);
+export const BuildDetails: React.FC = () => {
+  const { buildId } = useParams<{buildId?: string}>();
+  const buildsDetails = useSelector((state: RootState) => state.main.buildDetails);
+  const buildsLog = useSelector((state: RootState) => state.main.buildLog);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getBuildInformation(buildId, dispatch));
+    dispatch(getBuildsInformation(buildId, dispatch));
   }, []);
 
   return (

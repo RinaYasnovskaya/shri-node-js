@@ -1,14 +1,23 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
+import { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { Footer, Header, StartPage, BuildList, BuildDetails, Settings } from '../index';
 import '../../assets/scss/main.scss';
+import {
+  Footer,
+  Header,
+  StartPage,
+  BuildList,
+  BuildDetails,
+  Settings,
+} from '../';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSettingsAsync } from '../../actions';
+import { RootState } from '../..';
 
-export const App = () => {
-  const showSettings = useSelector((state) => state.main.showSettings);
-  const rebuild = useSelector((state) => state.main.rebuild);
-  const settings = useSelector((state) => state.main.settings);
+export const App: React.FC = () => {
+  const showSettings = useSelector((state: RootState) => state.main.showSettings);
+  const rebuild = useSelector((state: RootState) => state.main.rebuild);
+  const settings = useSelector((state: RootState) => state.main.settings);
   const check = Object.keys(settings).length === 0;
 
   const dispatch = useDispatch();
@@ -42,4 +51,4 @@ export const App = () => {
       <Footer />
     </div>
   );
-}
+};

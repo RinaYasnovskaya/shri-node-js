@@ -1,8 +1,8 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 import './footer.scss';
 
-export const Footer = () => {
+export const Footer: React.FC = () => {
   return (
     <div className="footer">
       <div className="footer__left-elem">

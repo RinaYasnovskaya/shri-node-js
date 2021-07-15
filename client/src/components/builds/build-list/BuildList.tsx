@@ -17,7 +17,7 @@ export const BuildList: React.FC = () => {
 
   return (
     <div className="build-list">
-      { builds && builds.map((item: ItemValues) => <BuildCard item={item} key={item.buildNumber} />) }//TODO: написать интерфейс
+      { builds && builds.map((item: ItemValues) => <BuildCard item={item} key={item.buildNumber} />) }
       <button key="button-show" className="button button_light button__show" >Show more</button>
     </div>
   );

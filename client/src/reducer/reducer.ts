@@ -1,4 +1,6 @@
-const defaultState = {
+import { DefaultStateValues, PayloadAction } from "./types";
+
+const defaultState: DefaultStateValues = {
   showSettings: true,
   rebuild: false,
   builds: [],
@@ -9,7 +11,7 @@ const defaultState = {
   buildLog: null
 };
 
-export const storeReducer = (state = defaultState, action) => {
+export const storeReducer = (state = defaultState, action: PayloadAction) => {
   switch(action.type) {
     case 'SHOW_SETTINGS':
       return {

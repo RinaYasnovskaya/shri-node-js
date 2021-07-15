@@ -8,13 +8,13 @@ import { getBuildsInformation } from '../../../actions';
 import { RootState } from '../../..';
 
 export const BuildDetails: React.FC = () => {
-  const { buildId } = useParams<{buildId?: string}>();
+  const { buildId } = useParams<{buildId: string}>();
   const buildsDetails = useSelector((state: RootState) => state.main.buildDetails);
   const buildsLog = useSelector((state: RootState) => state.main.buildLog);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getBuildsInformation(buildId, dispatch));
+    dispatch(getBuildsInformation(buildId));
   }, []);
 
   return (

@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "./bundle/",
+    "module": "CommonJS",
+    "target": "es5",
+    "allowJs": true,
+    "strict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "declaration": true,
+  },
+  "include": ["src"],
+}

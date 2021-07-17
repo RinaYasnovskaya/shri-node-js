@@ -1,9 +1,11 @@
-const axios = require('axios').default;
-const { exec } = require('child_process');
-const process = require('process');
-const db = require('../../entities/Database');
+import axios from 'axios';
+import process from 'process';
+import { RequestExp, ResponseExp } from '../Types';
+import { exec } from 'child_process';
+import db from '../../entities/Database';
+import { RequestSettingsBody } from './Settings';
 
-module.exports = async (request, response) => {
+export const postSettings = async (request: RequestExp<RequestSettingsBody>, response: ResponseExp) => {
   const { repoName, mainBranch, buildCommand } = request.body;
   const TOKEN = process.env.AUTH_TOKEN;
 
@@ -43,8 +45,9 @@ module.exports = async (request, response) => {
         });
       });
     }
-  } catch (error) {
-    console.log(error);
-    response.json(error.message);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      response.json(error.message);
+    }
   }
 };

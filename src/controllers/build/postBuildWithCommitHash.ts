@@ -1,16 +1,18 @@
-const util = require('util');
-const process = require('process');
-const { execFile, execSync } = require('child_process');
-const axios = require('axios');
+import axios, { AxiosResponse } from 'axios';
+import process from 'process';
+import { RequestExp, ResponseExp } from '../Types';
+import util from 'util';
+import { execFile, execSync, exec } from 'child_process';
+import { RequestData, ResultObj } from './postBuildType';
 
 const execFileAsync = util.promisify(execFile);
 
-async function postInfoBuild(obj, response, commitHash) {
+async function postInfoBuild(obj: ResultObj, response: ResponseExp, commitHash: string) {
   const TOKEN = process.env.AUTH_TOKEN;
   const buildCommand = process.env.BUILD_COMMAND;
 
   try {
-    const resReq = await axios.post('https://shri.yandex/hw/api/build/request', obj, {
+    const resReq: AxiosResponse<RequestData> = await axios.post('https://shri.yandex/hw/api/build/request', obj, {
       headers: {
         Authorization: `Bearer ${TOKEN}`,
         'Content-Type': 'application/json',
@@ -21,7 +23,7 @@ async function postInfoBuild(obj, response, commitHash) {
       const { data: { id } } = resReq.data;
       const time = new Date();
       const dateTime = new Date(time.getTime() - (time.getTimezoneOffset() * 60000)).toJSON();
-      const body = {
+      const body: ResultObj = {
         buildId: id,
         dateTime,
       };
@@ -33,12 +35,11 @@ async function postInfoBuild(obj, response, commitHash) {
         },
       });
 
-      execSync(`
+      exec(`
         cd local
         git checkout ${commitHash}
         ${buildCommand}
-      `, async (err, stdout) => {
-        console.log(err, stdout);
+      `, async (err: any, stdout: any) => {
         const bodyFinish = {
           buildId: id,
           duration: 0,
@@ -56,12 +57,12 @@ async function postInfoBuild(obj, response, commitHash) {
 
       response.json(resReq.data);
     }
-  } catch (err) {
+  } catch (err: unknown) {
     console.log('err:', err);
   }
 }
 
-module.exports = async (request, response) => {
+export const postBuildWithCommitHash = async (request: RequestExp, response: ResponseExp) => {
   const { params: { commitHash } } = request;
   const dir = process.cwd();
 
@@ -96,7 +97,7 @@ module.exports = async (request, response) => {
 
       const comitInfo = values[1].stdout.split('[split]');
 
-      const resultObj = {
+      const resultObj: ResultObj = {
         branchName,
         commitMessage: comitInfo[2],
         commitHash: comitInfo[0],
@@ -105,7 +106,10 @@ module.exports = async (request, response) => {
 
       postInfoBuild(resultObj, response, commitHash);
     })
-    .catch((error) => {
-      response.json(error.message);
+    .catch((error: unknown) => {
+      if (error instanceof Error) {
+        response.json(error.message);
+      }
     });
 };
+

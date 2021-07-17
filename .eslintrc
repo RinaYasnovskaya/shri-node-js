@@ -6,9 +6,11 @@
     "es6": true
   },
   "settings": {
-    "import/extensions": [
-      ".js"
-    ]
+    "import/extensions": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
   },
   "rules": {
     "import/no-dynamic-require": 0,

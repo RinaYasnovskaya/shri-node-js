@@ -18,7 +18,7 @@ export const mainPage = () => ({
   type: MAIN_PAGE,
 });
 
-export const setRebuild = (value: string) => ({
+export const setRebuild = (value: boolean) => ({
   type: SET_REBUILD,
   payload: value,
 });
@@ -33,9 +33,9 @@ export const setSettings = (settings: any) => ({
   payload: settings,
 });
 
-export const settingsIsDone = (isDone: boolean) => ({
+export const settingsIsDone = (done: string) => ({
   type: SETTINGS_IS_DONE,
-  payload: isDone,
+  payload: done,
 });
 
 export const settingsResult = (result: any) => ({

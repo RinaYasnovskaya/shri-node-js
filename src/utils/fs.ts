@@ -1,11 +1,11 @@
-const fs = require('fs');
-const util = require('util');
+import fs from 'fs';
+import util from 'util';
 
 const writeFileAsync = util.promisify(fs.writeFile);
 const unlinkFileAsync = util.promisify(fs.unlink);
 const existsFileAsync = util.promisify(fs.exists);
 
-module.exports = {
+export const fsObj = {
   writeFile: async (path, content) => {
     await writeFileAsync(path, content, { encoding: 'utf-8' });
   },

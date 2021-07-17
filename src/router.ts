@@ -1,18 +1,16 @@
-const express = require('express');
-// const { createProxyMiddleware } = require('http-proxy-middleware');
-// const path = require('path');
-const {
+import express from 'express';
+import {
   getSettings,
   postSettings,
   getBuilds,
   getBuildInformation,
   getBuildLogs,
   postBuildWithCommitHash,
-} = require('./controllers');
+} from './controllers';
 
 // create Routers
-const routerApi = new express.Router();
-const routerMain = new express.Router();
+export const routerApi = express.Router();
+export const routerMain = express.Router();
 
 // handlers for /api
 routerApi.get('/settings', getSettings); // GET /api/settings  — получение сохраненных настроек
@@ -24,17 +22,5 @@ routerApi.get('/builds/:buildId/logs', getBuildLogs);// GET  /api/builds/:buildI
 
 // handler for /
 // routerMain.get('/', (req, res) => res.render('index.html'));
-// routerMain.use(
-//   '/',
-//   process.env.NODE_ENV === 'production'
-//     ? express.static(path.resolve(__dirname, '..', 'client', 'dist'))
-//     : createProxyMiddleware({
-//       target: 'http://localhost:3000',
-//       secure: false,
-//       changeOrigin: true,
-//     }),
-// );
 
 // exports routers
-exports.routerApi = routerApi;
-exports.routerMain = routerMain;

@@ -1,11 +1,12 @@
-require('dotenv').config();
-const express = require('express');
-const http = require('http');
-const path = require('path');
-const process = require('process');
-const cors = require('cors');
-const { routerApi, routerMain } = require('./router');
+import * as dotenv from 'dotenv';
+import express, { Request, Response } from 'express';
+import http from 'http';
+import path from 'path';
+import process from 'process';
+import cors from 'cors';
+import { routerApi, routerMain } from './router';
 
+dotenv.config();
 const app = express();
 const port = process.env.PORT;
 const server = http.createServer(app);
@@ -23,7 +24,7 @@ app.use(express.json(
 
 app.use('/', routerMain);
 app.use('/api', routerApi);
-app.get('/api', (req, res) => res.send('api part'));
+app.get('/api', (req: Request, res: Response) => res.send('api part'));
 
 server.listen(port, () => {
   console.log(`Server has been started on ${port}`);

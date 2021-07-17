@@ -1,18 +1,21 @@
-const { EventEmitter } = require('events');
-const { existsSync } = require('fs');
-const path = require('path');
-const { writeFile } = require('../utils/fs');
-const { prettifyJsonToString } = require('../utils/prettifyJsonToString');
+import { EventEmitter } from 'events';
+import { existsSync } from 'fs';
+import path from 'path';
+import { fsObj } from '../utils/fs';
+import { prettifyJsonToString } from '../utils/prettifyJsonToString';
 
-const dbFolder = path.resolve(__dirname, '../../db/');
-const dbDumpFile = path.resolve(dbFolder, 'dump.json');
+const dbFolder: string = path.resolve(__dirname, '../../db/');
+const dbDumpFile: string = path.resolve(dbFolder, 'dump.json');
 
 class Database extends EventEmitter {
+  settings: {};
+  listOfBuilds: {};
+
   constructor() {
     super();
 
     this.settings = {};
-    this.builds = {};
+    this.listOfBuilds = {};
   }
 
   async initFromDump() {
@@ -31,28 +34,28 @@ class Database extends EventEmitter {
     }
   }
 
-  insertSettings(objectSettings) {
+  insertSettings(objectSettings: any) {
     this.settings = objectSettings;
     this.listOfBuilds = {};
 
     this.emit('changed');
   }
 
-  insertBuildToList(objectBuild) {
+  insertBuildToList(objectBuild: any) {
     this.listOfBuilds[objectBuild.buildId] = objectBuild;
 
     this.emit('changed');
   }
 
-  getBuildId() {
+  getBuildId(): number {
     return Object.keys(this.listOfBuilds).length + 1;
   }
 
-  getSettings() {
+  getSettings(): any {
     return this.settings;
   }
 
-  toJSON() {
+  toJSON(): any {
     return {
       settings: this.settings,
       listOfBuilds: this.listOfBuilds,
@@ -65,7 +68,7 @@ const db = new Database();
 db.initFromDump();
 
 db.on('changed', () => {
-  writeFile(dbDumpFile, prettifyJsonToString(db.toJSON()));
+  fsObj.writeFile(dbDumpFile, prettifyJsonToString(db.toJSON()));
 });
 
-module.exports = db;
+export default db;

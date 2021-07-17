@@ -4,8 +4,8 @@
   "description": "shri node-js hw",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index",
-    "server": "nodemon src/index"
+    "start": "node bundle/index",
+    "typescript": "npx tsc"
   },
   "repository": {
     "type": "git",

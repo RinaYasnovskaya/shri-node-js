@@ -9,7 +9,7 @@ const dbDumpFile: string = path.resolve(dbFolder, 'dump.json');
 
 class Database extends EventEmitter {
   settings: {};
-  listOfBuilds: {};
+  listOfBuilds: any;
 
   constructor() {
     super();

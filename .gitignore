@@ -3,3 +3,4 @@ dist
 local
 tests_output
 geckodriver.log
+bundle

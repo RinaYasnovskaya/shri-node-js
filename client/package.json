@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack serve --open --config ./build-webpack/webpack.dev.conf.js",
     "build": "webpack --config ./build-webpack/webpack.build.conf.js",
-    "lint": "node node_modules/eslint/bin/eslint.js ./src/index.js"
+    "lint": "node node_modules/eslint/bin/eslint.js ./src/index.js",
+    "typescript": "npx tsc"
   },
   "author": "",
   "license": "ISC",

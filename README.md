@@ -2,7 +2,17 @@
 
 node v16.3.0
 
-- запуск сервера: npm run start || npm start
-- запуск сервера с токеном: $env:AUTH_TOKEN="{value}"; npm start
+Теперь, если нужно запустить сервер, то:
 
-- запуск сервера с отслеживанием изменений: npm run server
+- npm install
+- npm run typescript, чтобы собрать все ts файлы в js, создастся папка bundle
+- $env:AUTH_TOKEN="{value}"; npm start
+
+Файлы клиента собираются с помощью конфигураций вебпака, но можно также и с помощью самого typescript
+
+- cd client
+- npm install
+- npm start (запускает dev сервер)
+- npm build (собирает проект)
+
+- cобрать только файлы с кодом: npm run typescript

@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { runBuild } from '../../actions';
 import { RootState } from '../..';
 
-const ModalFormFields: React.ComponentType<InjectedFormProps> = ({ onCancel }: any) => {
+const ModalFormFields: React.ComponentType = ({ onCancelModal }: any) => {
   const { modal } = useSelector((state: RootState) => state.form);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const ModalFormFields: React.ComponentType<InjectedFormProps> = ({ onCancel }: a
       <span className="modal__description">Enter the commit hash which you want to build.</span>
       <Field name="hash" component="input" type="text" className="modal__input" placeholder="Commit hash" />
       <input type="submit" className="button button_bright" value="Run build" onClick={onStartBuild} />
-      <input type="button" className="button button_light" value="Cancel" onClick={onCancel} />
+      <input type="button" className="button button_light" value="Cancel" onClick={onCancelModal} />
     </form>
   )
 }

@@ -2,18 +2,18 @@ import * as React from 'react';
 import './modal.scss';
 import { ModalForm } from './ModalForm';
 
-interface ModalProps {
+export interface ModalProps {
   isOpen: boolean;
-  onCancel: () => void;
+  onCancelModal: () => any;
 }
 
-export const Modal: React.FC<ModalProps> = ({ isOpen, onCancel }) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onCancelModal }) => {
   return (
     <>
     {
       isOpen && <div className="modal">
-        //TODO: wtf вообще
-        {/* <ModalForm onCancel={onCancel} /> */}
+        {/* тут проблемка :) */}
+        {/* <ModalForm onCancelModal={onCancelModal} /> */}
       </div>
     }
     </>

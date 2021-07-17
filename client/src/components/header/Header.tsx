@@ -73,7 +73,7 @@ export const Header: React.FC<HeaderProps> = ({ settings, rebuild, repoName, set
             >{textClassSettings[1]}</Link>
           : ''}
       </div>
-      <Modal isOpen={isOpen} onCancel={onCancelModal} />
+      <Modal isOpen={isOpen} onCancelModal={onCancelModal} />
     </div>
   );
 };

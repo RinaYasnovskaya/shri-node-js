@@ -5,7 +5,14 @@ import { useHistory } from 'react-router';
 import { runBuild } from '../../actions';
 import { RootState } from '../..';
 
-const ModalFormFields: React.ComponentType = ({ onCancelModal }: any) => {
+interface CustomProps {
+  onCancelModal: () => void;
+}
+
+const ModalFormFields: React.ComponentType<
+  CustomProps & InjectedFormProps<
+    {}, CustomProps>
+> = ({ onCancelModal }) => {
   const { modal } = useSelector((state: RootState) => state.form);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -28,6 +35,6 @@ const ModalFormFields: React.ComponentType = ({ onCancelModal }: any) => {
   )
 }
 
-export const ModalForm = reduxForm({
+export const ModalForm = reduxForm<{}, CustomProps>({
   form: 'modal'
 })(ModalFormFields);

@@ -1,6 +1,6 @@
 # shri-node-js
 
-Готовое задание (актуальная финальная сборка) находится в ветке [ts-part](https://github.com/RinaYasnovskaya/shri-node-js/tree/ts-part).
+## Готовое задание (актуальная финальная сборка) находится в ветке [ts-part](https://github.com/RinaYasnovskaya/shri-node-js/tree/ts-part).
 
 ниже только для запуска сервера.
 node v16.3.0
